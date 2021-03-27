@@ -10,15 +10,3 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Nagarjuna-Subscription(64fb99a2-bbbe-4a2f-b48b-cce213de6edb)'
-    subscriptionId: '64fb99a2-bbbe-4a2f-b48b-cce213de6edb'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Test-RG'
-    location: 'Australia East'
-    templateLocation: 'Linked artifact'
-    csmFile: 'nagarjunabolla7.TestRepo'
-    overrideParameters: 'vm'
-    deploymentMode: 'Incremental'
