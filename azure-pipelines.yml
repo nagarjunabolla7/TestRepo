@@ -1,0 +1,80 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    {
+    "name": "devopsvm",
+    "id": "/subscriptions/64fb99a2-bbbe-4a2f-b48b-cce213de6edb/resourceGroups/Test-RG/providers/Microsoft.Compute/virtualMachines/devopsvm",
+    "type": "Microsoft.Compute/virtualMachines",
+    "location": "australiaeast",
+    "properties": {
+        "vmId": "60b1e083-4256-40fb-80e7-7105377c68b9",
+        "hardwareProfile": {
+            "vmSize": "Standard_D2s_v3"
+        },
+        "storageProfile": {
+            "imageReference": {
+                "publisher": "suse",
+                "offer": "sles-15-sp2-basic",
+                "sku": "gen1",
+                "version": "latest"
+            },
+            "osDisk": {
+                "osType": "Linux",
+                "name": "devopsvm_OsDisk_1_7ea9409931374d2183ce22e4744e82aa",
+                "createOption": "FromImage",
+                "caching": "ReadWrite",
+                "managedDisk": {
+                    "storageAccountType": "Standard_LRS",
+                    "id": "/subscriptions/64fb99a2-bbbe-4a2f-b48b-cce213de6edb/resourceGroups/Test-RG/providers/Microsoft.Compute/disks/devopsvm_OsDisk_1_7ea9409931374d2183ce22e4744e82aa"
+                },
+                "diskSizeGB": 30
+            },
+            "dataDisks": [
+                {
+                    "lun": 0,
+                    "name": "devopsvm_DataDisk_0",
+                    "createOption": "Attach",
+                    "caching": "ReadOnly",
+                    "managedDisk": {
+                        "storageAccountType": "Standard_LRS",
+                        "id": "/subscriptions/64fb99a2-bbbe-4a2f-b48b-cce213de6edb/resourceGroups/Test-RG/providers/Microsoft.Compute/disks/devopsvm_DataDisk_0"
+                    },
+                    "diskSizeGB": 32
+                }
+            ]
+        },
+        "osProfile": {
+            "computerName": "devopsvm",
+            "adminUsername": "Cloud",
+            "linuxConfiguration": {
+                "disablePasswordAuthentication": false
+            },
+            "secrets": []
+        },
+        "networkProfile": {
+            "networkInterfaces": [
+                {
+                    "id": "/subscriptions/64fb99a2-bbbe-4a2f-b48b-cce213de6edb/resourceGroups/Test-RG/providers/Microsoft.Network/networkInterfaces/devopsvm444"
+                }
+            ]
+        },
+        "diagnosticsProfile": {
+            "bootDiagnostics": {
+                "enabled": true
+            }
+        },
+        "provisioningState": "Succeeded"
+    }
